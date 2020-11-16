@@ -7,7 +7,7 @@ class App extends Component {
 		super(props)
 		this.state = {
 			countTable:10,			
-			minesArr:[],
+			minesArr:[],			
 			userFlagArr: [],
 			userStepArr: [],
 			gameOver:false,
@@ -17,7 +17,7 @@ class App extends Component {
 	componentDidMount(){
 		const arr = new Set();
 		while(arr.size<10){
-			let number = Math.floor(Math.random()*100 + 1);
+			let number = Math.floor(Math.random()*100);
 			arr.add(number);
 		}
 		this.setState({minesArr:Array.from(arr)});
@@ -29,14 +29,14 @@ class App extends Component {
 		if (this.isStepOnMine(cell)) return;		
 		if (this.isEmptyCell(cell)) return;		
 		this.showMinesAround(cell);	
-		this.setState({});
-		if (new Set(this.state.userStepArr.filter(el=> isNaN(el)===false).sort((a,b)=>a-b)).size === 90) this.isWon();		
+		
+		this.isWon();		
 	}
-	isWon = () => {
-		const usersMines = this.state.userFlagArr.sort().join('');
-		const minesArr = this.state.minesArr.sort().join('');		
-		usersMines === minesArr ? this.setState({ isWon:true }) 
-								: this.setState({ gameOver:true });
+	isWon = () => {	
+		this.setState({});	
+		if (new Set(this.state.userStepArr).size === 90){
+			this.setState({ isWon:true });				
+		}
 		return
 	}
 	showMinesAround = cell => {		
@@ -52,9 +52,15 @@ class App extends Component {
 	
 	neighbourCells = cell => {
 		let neightbours;
-		if (cell%10 === 9 || cell === 9) neightbours = [cell-1,cell-11,cell-10,cell+9,cell+10]; 
-		else if (cell%10 === 0) neightbours = [cell-10,cell-9,cell+1,cell+10,cell+11]; 		
-		else neightbours = [cell+1,cell-1,cell-11,cell-10,cell-9,cell+9,cell+10,cell+11];  
+		if (cell%10 === 9 || cell === 9) {
+			neightbours = [cell-1,cell-11,cell-10,cell+9,cell+10];
+		} 
+		else if (cell%10 === 0) {
+			neightbours = [cell-10,cell-9,cell+1,cell+10,cell+11];
+		} 		
+		else {
+			neightbours = [cell+1,cell-1,cell-11,cell-10,cell-9,cell+9,cell+10,cell+11];
+		}  
 		return neightbours.filter( el => !this.state.userStepArr.includes(el) && el >= 0 && el < 100 )   
 	}
 
@@ -84,33 +90,37 @@ class App extends Component {
 	}
 
 	setFlag = event => {
-		event.preventDefault();				
-		this.setState({ userFlagArr: [...this.state.userFlagArr, +event.target.dataset.col] });
+		event.preventDefault();		
+		this.state.userFlagArr.push(+event.target.dataset.col)
+		this.isWon();		
 	}
-
+	startNewGame = ()=> {
+		window.location.reload();
+	}
 	render(){		
 		return (<div style = {{backgroundImage: `url(${ backUrl })`}} className = "back">
-					<h1>MinesWeeper</h1>
-					<h3>Ко дню рождения Геннадича посвещается</h3>
+					<span className = "title">MinesWeeper</span>
+					<span className = "subtitle">Игра "Сапер". Раскрывай поле, не наступая на мины.</span>
 					<div className = "field-wrap">
 						<div className="field" 	onClick = { e => !this.state.gameOver && this.nextStep(e) } 
 											onContextMenu = { e => !this.state.gameOver && this.setFlag(e) }>
 							{[...Array(100).keys()].map( item => {
 								return		<div  	className = {  this.state.userFlagArr.includes(item) ?  "flag"
 															: this.state.userStepArr.includes(item) && this.state.minesArr.includes(item) ?  "step-on-mine"
-															:  this.state.userStepArr.includes(item) ? "user-step" : "field-item"}
+															: this.state.userStepArr.includes(item) ? "user-step" : "field-item"}
 												data-col = { item } 
 												key = { item }>
-										</div>})
-							} 						
-							
+										</div>})										
+							}							
 						</div>
-						{this.state.isWon && <div className = "result">
-												<span>You are MAN!</span>
-											</div>}
-						{this.state.gameOver && <div className = "result">
-													<span>опять обосрался...</span>
-												</div>}
+						<div className = "result-wrap">
+							<div className = "new-game" onClick = {()=> this.startNewGame()}>New game</div>
+							<div className = "result">								
+								{!this.state.isWon && !this.state.gameOver && "Your status"}											
+								{this.state.isWon && "Y're WIN!"}
+								{this.state.gameOver && "Game over"}																		 
+							</div>						
+						</div>
 					</div>
 				</div>
 		);

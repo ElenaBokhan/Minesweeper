@@ -8,9 +8,9 @@
 .field-wrap{
   background-color: rgba(0,0,0,.5);
   width: 40%;
-  height: 75%;
+  height: 80%;
   margin: 0 auto;
-  padding: 50px 20px;
+  padding: 30px 20px;
 }
 .field{
   width: 400px;
@@ -27,8 +27,7 @@
 .field-item{
   width: 40px;
   height: 40px;
-  display: inline-block;
- 
+  display: inline-block; 
   box-sizing: border-box;
   color: grey;
 }
@@ -47,7 +46,6 @@
   display: inline-block;
   background-image: url("https://img.icons8.com/color/48/000000/filled-flag.png");
   background-size: cover;
-  /* border:1px solid #667d83; */
   box-sizing: border-box;
 
 }
@@ -69,10 +67,10 @@
   background-size: cover;
   background-position-x: center;
   display: grid;
-  grid-template-rows: 2fr 1fr 9fr;
+  grid-template-rows: 2fr 0fr 9fr;
   grid-template-columns: 1fr;
 }
-h1{
+.title{
   font-family: 'Stravinski';
   font-size: 90px;
   color: rgb(255, 150, 0);
@@ -80,20 +78,164 @@ h1{
   text-align: center;
   margin: 50px 0 0;
 }
-h3{
+.subtitle{
   text-align: center;
   color: wheat;
   text-transform: uppercase;
   font-weight: 100;
   letter-spacing: 3px;
+  margin-bottom: 30px;
 }
-.result{
+.result-wrap{
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    padding: 25px 43px 0;
+}
+.new-game{
   background-color: #ffcd00;
   padding: 10px 20px;
-  color: #1f2931;
-  max-width: 240px;
-  margin: 30px auto;
+  color: #1f2931;  
   text-align: center;
   font-size: 24px;
   font-weight: 900;
+  padding: 10px;
+}
+.new-game:hover{
+  background-color: #ff9233;
+}
+.new-game:active{
+  background-color: #dd6b08;
+}
+.result{
+  background-color: #c4360b;
+  padding: 10px 20px;
+  color: #ffffff;  
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  padding: 10px;
+}
+@media (max-width : 1224px) {
+  .title{
+    font-family: 'Stravinski';
+    font-size: 70px;
+    color: rgb(255, 150, 0);
+    letter-spacing: 5px;
+    text-align: center;
+    margin: 50px 0 0;
+  }
+  
+  .field-wrap{
+    background-color: rgba(0,0,0,.5);
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;        
+  }
+}
+.result-wrap{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 24px;
+  column-gap: 24px;
+  padding: 25px 0;
+  width: 424px;
+  margin: auto;
+}
+@media (max-width: 576px){
+  .back{
+    width: 100%;    
+    background-position-x: -194px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 6fr 2fr;
+    background-size: 178%;
+    background-position-y: 0px;
+  }
+
+  .title{
+    font-family: 'Stravinski';
+    font-size: 40px;
+    color: rgb(255, 150, 0);
+    letter-spacing: 5px;
+    text-align: center;
+  }
+  .subtitle{
+    text-align: center;
+    color: wheat;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin: 20px 0 30px;
+    font-size: 14px;
+  } 
+  .field-wrap{
+    background-color: rgba(0,0,0,.5);
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+    display: contents;    
+  }
+  .field{
+    width: 300px;
+    height: 300px;
+    border: 12px solid rgb(255, 150, 0);
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    background-color: rgb(49, 68, 82);
+  }
+  .field div{
+     border:1px solid #667d83;
+     width: 10%;
+    height: 10%; 
+    box-sizing: border-box; 
+  }
+  .field-item{
+    color: grey;
+  }
+  .step-on-mine{      
+    background-image: url("https://img.icons8.com/color/30/000000/naval-mine.png"); 
+    background-repeat: no-repeat;   
+    background-position: center;
+  }
+  .flag{        
+    background-image: url("https://img.icons8.com/color/48/000000/filled-flag.png");
+    background-size: cover;
+    background-size: 100%;  
+  }
+  .user-step{        
+    background-color: #dd6b08;
+    font-size: 20px;
+    font-weight: 900;
+    color: #314452;
+    text-align: center;
+    line-height: 30px;
+  }
+  .new-game{
+    background-color: #ffcd00;    
+    color: #1f2931;    
+    text-align: center;
+    font-size: 20px;
+    font-weight: 900;    
+  }
+  .result{
+    background-color: #c4360b;
+    color: #ffffff;    
+    text-align: center;
+    font-size: 20px;
+    font-weight: 900;    
+  }
+  .new-game:hover{
+    background-color: #ff9233;
+  }
+  .new-game:active{
+    background-color: #dd6b08;
+  }
+  .result-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 24px;   
+    width: 324px;
+    margin: auto;
+  }
 }
